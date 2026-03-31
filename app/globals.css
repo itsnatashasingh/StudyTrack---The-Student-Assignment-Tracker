@@ -137,7 +137,15 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html,
   body {
-    @apply bg-background text-foreground;
+    @apply min-h-screen w-full bg-background text-foreground;
+  }
+  html {
+    @apply overflow-x-hidden;
+  }
+  #__next,
+  main {
+    @apply w-full;
   }
 }

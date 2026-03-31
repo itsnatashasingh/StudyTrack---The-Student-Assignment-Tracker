@@ -1,7 +1,6 @@
 'use client'
 
 import * as React from 'react'
-// Task list component for managing assignments
 import { Plus, ListFilter } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardAction } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
