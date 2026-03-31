@@ -1,8 +1,8 @@
 'use client'
 
 import * as React from 'react'
-import { Plus, ListFilter } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardAction } from '@/components/ui/card'
+import { Plus, ListFilter, ClipboardList } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
@@ -17,7 +17,6 @@ import { AssignmentCard } from './assignment-card'
 import { AddTaskDialog } from './add-task-dialog'
 import { useAssignmentsContext } from '@/lib/store'
 import { Assignment } from '@/lib/types'
-import { ClipboardList } from 'lucide-react'
 
 export function TaskList() {
   const {
@@ -55,52 +54,50 @@ export function TaskList() {
     }
   }
 
+  const filteredUpcoming = filterTasks(upcomingTasks)
+  const filteredCompleted = filterTasks(completedTasks)
+
   return (
     <>
       <Card>
         <CardHeader>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <CardTitle>Assignments</CardTitle>
-              <CardDescription>Manage your upcoming and completed tasks</CardDescription>
-            </div>
-            <CardAction>
-              <div className="flex items-center gap-2">
-                <Select value={subjectFilter} onValueChange={setSubjectFilter}>
-                  <SelectTrigger className="w-[160px]">
-                    <ListFilter className="mr-2 size-4" />
-                    <SelectValue placeholder="Filter" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Subjects</SelectItem>
-                    {subjects.map((s) => (
-                      <SelectItem key={s.name} value={s.name}>
-                        {s.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Button onClick={() => setIsDialogOpen(true)}>
-                  <Plus className="mr-2 size-4" />
-                  Add Task
-                </Button>
-              </div>
-            </CardAction>
-          </div>
+          <CardTitle>Assignments</CardTitle>
+          <CardDescription>Manage your upcoming and completed tasks</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <Select value={subjectFilter} onValueChange={setSubjectFilter}>
+              <SelectTrigger className="w-full sm:w-[180px]">
+                <ListFilter className="mr-2 size-4" />
+                <SelectValue placeholder="Filter" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Subjects</SelectItem>
+                {subjects.map((s) => (
+                  <SelectItem key={s.name} value={s.name}>
+                    {s.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button onClick={() => setIsDialogOpen(true)} className="w-full sm:w-auto">
+              <Plus className="mr-2 size-4" />
+              Add Task
+            </Button>
+          </div>
+
           <Tabs defaultValue="upcoming" className="w-full">
             <TabsList className="mb-4 w-full justify-start">
               <TabsTrigger value="upcoming" className="flex-1 sm:flex-none">
-                Upcoming ({filterTasks(upcomingTasks).length})
+                Upcoming ({filteredUpcoming.length})
               </TabsTrigger>
               <TabsTrigger value="completed" className="flex-1 sm:flex-none">
-                Completed ({filterTasks(completedTasks).length})
+                Completed ({filteredCompleted.length})
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="upcoming" className="space-y-3">
-              {filterTasks(upcomingTasks).length === 0 ? (
+              {filteredUpcoming.length === 0 ? (
                 <Empty>
                   <EmptyMedia variant="icon">
                     <ClipboardList className="size-6" />
@@ -121,7 +118,7 @@ export function TaskList() {
                   )}
                 </Empty>
               ) : (
-                filterTasks(upcomingTasks).map((task) => (
+                filteredUpcoming.map((task) => (
                   <AssignmentCard
                     key={task.id}
                     assignment={task}
@@ -134,7 +131,7 @@ export function TaskList() {
             </TabsContent>
 
             <TabsContent value="completed" className="space-y-3">
-              {filterTasks(completedTasks).length === 0 ? (
+              {filteredCompleted.length === 0 ? (
                 <Empty>
                   <EmptyMedia variant="icon">
                     <ClipboardList className="size-6" />
@@ -145,7 +142,7 @@ export function TaskList() {
                   </EmptyDescription>
                 </Empty>
               ) : (
-                filterTasks(completedTasks).map((task) => (
+                filteredCompleted.map((task) => (
                   <AssignmentCard
                     key={task.id}
                     assignment={task}
