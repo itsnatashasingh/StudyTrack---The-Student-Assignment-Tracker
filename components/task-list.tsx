@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+// Task list component for managing assignments
 import { Plus, ListFilter } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardAction } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -12,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Empty } from '@/components/ui/empty'
+import { Empty, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from '@/components/ui/empty'
 import { AssignmentCard } from './assignment-card'
 import { AddTaskDialog } from './add-task-dialog'
 import { useAssignmentsContext } from '@/lib/store'
@@ -102,22 +103,22 @@ export function TaskList() {
             <TabsContent value="upcoming" className="space-y-3">
               {filterTasks(upcomingTasks).length === 0 ? (
                 <Empty>
-                  <Empty.Icon>
-                    <ClipboardList className="size-8" />
-                  </Empty.Icon>
-                  <Empty.Title>No upcoming tasks</Empty.Title>
-                  <Empty.Description>
+                  <EmptyMedia variant="icon">
+                    <ClipboardList className="size-6" />
+                  </EmptyMedia>
+                  <EmptyTitle>No upcoming tasks</EmptyTitle>
+                  <EmptyDescription>
                     {subjectFilter !== 'all'
                       ? 'No tasks found for this subject. Try a different filter.'
                       : 'Add your first assignment to get started.'}
-                  </Empty.Description>
+                  </EmptyDescription>
                   {subjectFilter === 'all' && (
-                    <Empty.Actions>
+                    <EmptyContent>
                       <Button onClick={() => setIsDialogOpen(true)}>
                         <Plus className="mr-2 size-4" />
                         Add Task
                       </Button>
-                    </Empty.Actions>
+                    </EmptyContent>
                   )}
                 </Empty>
               ) : (
@@ -136,13 +137,13 @@ export function TaskList() {
             <TabsContent value="completed" className="space-y-3">
               {filterTasks(completedTasks).length === 0 ? (
                 <Empty>
-                  <Empty.Icon>
-                    <ClipboardList className="size-8" />
-                  </Empty.Icon>
-                  <Empty.Title>No completed tasks</Empty.Title>
-                  <Empty.Description>
+                  <EmptyMedia variant="icon">
+                    <ClipboardList className="size-6" />
+                  </EmptyMedia>
+                  <EmptyTitle>No completed tasks</EmptyTitle>
+                  <EmptyDescription>
                     Tasks you complete will appear here.
-                  </Empty.Description>
+                  </EmptyDescription>
                 </Empty>
               ) : (
                 filterTasks(completedTasks).map((task) => (

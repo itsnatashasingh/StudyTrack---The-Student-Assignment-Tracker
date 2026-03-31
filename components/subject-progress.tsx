@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
 import { useAssignmentsContext } from '@/lib/store'
-import { Empty } from '@/components/ui/empty'
+import { Empty, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty'
 import { BookOpen } from 'lucide-react'
 
 export function SubjectProgress() {
@@ -19,13 +19,13 @@ export function SubjectProgress() {
         </CardHeader>
         <CardContent>
           <Empty>
-            <Empty.Icon>
-              <BookOpen className="size-8" />
-            </Empty.Icon>
-            <Empty.Title>No subjects yet</Empty.Title>
-            <Empty.Description>
+            <EmptyMedia variant="icon">
+              <BookOpen className="size-6" />
+            </EmptyMedia>
+            <EmptyTitle>No subjects yet</EmptyTitle>
+            <EmptyDescription>
               Add your first assignment to see subject progress
-            </Empty.Description>
+            </EmptyDescription>
           </Empty>
         </CardContent>
       </Card>

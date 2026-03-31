@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { Empty } from '@/components/ui/empty'
+import { Empty, EmptyMedia, EmptyTitle, EmptyDescription } from '@/components/ui/empty'
 import { useAssignmentsContext } from '@/lib/store'
 import { shouldShowReminder, calculateUrgency, REMINDER_FREQUENCY_LABELS } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -74,13 +74,13 @@ export function RemindersPanel({ open, onOpenChange }: RemindersPanelProps) {
 
               {pendingReminders.length === 0 ? (
                 <Empty className="py-6">
-                  <Empty.Icon>
+                  <EmptyMedia variant="icon">
                     <BellOff className="size-6" />
-                  </Empty.Icon>
-                  <Empty.Title className="text-sm">All caught up!</Empty.Title>
-                  <Empty.Description className="text-xs">
+                  </EmptyMedia>
+                  <EmptyTitle className="text-sm">All caught up!</EmptyTitle>
+                  <EmptyDescription className="text-xs">
                     No pending reminders right now
-                  </Empty.Description>
+                  </EmptyDescription>
                 </Empty>
               ) : (
                 <div className="flex flex-col gap-3">
@@ -172,13 +172,13 @@ export function RemindersPanel({ open, onOpenChange }: RemindersPanelProps) {
 
               {upcomingDeadlines.length === 0 ? (
                 <Empty className="py-6">
-                  <Empty.Icon>
+                  <EmptyMedia variant="icon">
                     <Calendar className="size-6" />
-                  </Empty.Icon>
-                  <Empty.Title className="text-sm">No deadlines</Empty.Title>
-                  <Empty.Description className="text-xs">
+                  </EmptyMedia>
+                  <EmptyTitle className="text-sm">No deadlines</EmptyTitle>
+                  <EmptyDescription className="text-xs">
                     Add tasks to see upcoming deadlines
-                  </Empty.Description>
+                  </EmptyDescription>
                 </Empty>
               ) : (
                 <div className="flex flex-col gap-2">
