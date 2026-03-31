@@ -16,7 +16,7 @@ import { Empty, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from '@
 import { AssignmentCard } from './assignment-card'
 import { AddTaskDialog } from './add-task-dialog'
 import { useAssignmentsContext } from '@/lib/store'
-import { Assignment } from '@/lib/types'
+import type { Assignment } from '@/lib/types'
 
 export function TaskList() {
   const {
@@ -37,10 +37,10 @@ export function TaskList() {
   const completedTasks = getCompletedAssignments()
   const subjects = getSubjects()
 
-  const filterTasks = (tasks: Assignment[]) => {
+  const filterTasks = React.useCallback((tasks: Assignment[]) => {
     if (subjectFilter === 'all') return tasks
     return tasks.filter((t) => t.subject === subjectFilter)
-  }
+  }, [subjectFilter])
 
   const handleEdit = (assignment: Assignment) => {
     setEditingTask(assignment)
